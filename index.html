@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SKY MOBILES — Premium mobile showroom sales & expense management" />
+    <meta name="theme-color" content="#030712" />
+    <title>SKY MOBILES · Sales & Expense Website</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23030712'/%3E%3Crect x='9' y='4' width='14' height='22' rx='3' stroke='%2300d4ff' stroke-width='2' fill='none'/%3E%3Ccircle cx='16' cy='24' r='1.5' fill='%2300d4ff'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orbs" aria-hidden="true">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+      <span class="orb orb-3"></span>
+    </div>
+
+    <div id="toast-root" class="toast-root" aria-live="polite"></div>
+
+    <div id="loader" class="loader" aria-live="polite">
+      <div class="loader-ring"></div>
+      <p class="loader-text">SKY MOBILES</p>
+      <span class="loader-sub">Loading website…</span>
+    </div>
+
+    <section id="login-screen" class="screen login-screen" hidden>
+      <div class="login-card glass">
+        <div class="login-brand">
+          <div class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="12" y="4" width="24" height="40" rx="6" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="38" r="2" fill="currentColor"/></svg>
+          </div>
+          <h1>SKY <span class="accent">MOBILES</span></h1>
+          <p class="login-tagline">Premium showroom finance control</p>
+        </div>
+        <form id="login-form" class="login-form" novalidate>
+          <p id="login-error" class="login-error" hidden></p>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" id="login-email" autocomplete="username" placeholder="admin@skymobiles.in" required />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input type="password" id="login-password" autocomplete="current-password" placeholder="••••••••" required />
+          </label>
+          <button type="submit" class="btn btn-primary btn-glow">Secure Sign In</button>
+          <p class="login-hint">Demo: <kbd>admin@skymobiles.in</kbd> / <kbd>sky2026</kbd></p>
+        </form>
+      </div>
+    </section>
+
+    <div id="app" class="app" hidden>
+      <aside id="sidebar" class="sidebar glass">
+        <div class="sidebar-brand">
+          <div class="brand-icon sm" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="12" y="4" width="24" height="40" rx="6" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="38" r="2" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <strong>SKY</strong>
+            <span>MOBILES</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <button type="button" class="nav-item is-active" data-view="dashboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" fill="currentColor"/></svg>
+            Dashboard
+          </button>
+          <button type="button" class="nav-item" data-view="sales">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/></svg>
+            Daily Sales
+          </button>
+          <button type="button" class="nav-item" data-view="expenses">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" fill="currentColor"/></svg>
+            Expenses
+          </button>
+          <button type="button" class="nav-item" data-view="reports">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z" fill="currentColor"/></svg>
+            Reports
+          </button>
+          <button type="button" class="nav-item" data-view="history">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z" fill="currentColor"/></svg>
+            History
+          </button>
+          <button type="button" class="nav-item" data-view="settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1112 8.4a3.6 3.6 0 010 7.2z" fill="currentColor"/></svg>
+            Settings
+          </button>
+        </nav>
+        <button type="button" id="logout-btn" class="nav-item nav-logout">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" fill="currentColor"/></svg>
+          Sign out
+        </button>
+      </aside>
+
+      <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+      <main class="main">
+        <header class="topbar glass">
+          <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="topbar-title">
+            <h2 id="page-title">Dashboard</h2>
+            <p id="page-date" class="topbar-date"></p>
+          </div>
+          <div class="topbar-actions">
+            <button type="button" class="btn btn-ghost btn-sm" id="go-today-btn" title="Jump to today">Today</button>
+            <label class="search-date glass-inset">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              <input type="date" id="global-date-search" aria-label="Search by date" />
+            </label>
+            <button type="button" class="btn btn-ghost btn-sm" id="export-csv-btn">CSV</button>
+            <button type="button" class="btn btn-ghost" id="export-pdf-btn">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zm-4 4v2h2v-2H9zm0 4v2h6v-2H9z"/></svg>
+              PDF
+            </button>
+            <button type="button" class="profile-chip" id="profile-open" aria-label="Open profile">
+              <span class="avatar" id="avatar-initials">SM</span>
+              <span class="profile-name" id="profile-display-name">Admin</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="view is-visible" id="view-dashboard" data-view="dashboard">
+          <div class="stats-row stats-row-split">
+            <div class="stats-col stats-col-sales">
+              <article class="stat-mini glass">
+                <span class="stat-label">Total Sales (Today)</span>
+                <strong id="stat-revenue" class="stat-value">₹0</strong>
+              </article>
+              <article class="stat-mini glass">
+                <span class="stat-label">Total Quantity</span>
+                <strong id="stat-items" class="stat-value">0</strong>
+              </article>
+            </div>
+            <div class="stats-col stats-col-expense">
+              <article class="stat-mini glass">
+                <span class="stat-label">Total Expense</span>
+                <strong id="stat-expenses-top" class="stat-value text-danger">₹0</strong>
+              </article>
+              <article class="stat-mini glass">
+                <span class="stat-label">Total Quantity</span>
+                <strong id="stat-expense-items" class="stat-value">0</strong>
+              </article>
+            </div>
+            <article class="stat-mini glass admin-only stats-col-branches">
+              <span class="stat-label">Branches</span>
+              <strong id="stat-branch-count" class="stat-value">0</strong>
+            </article>
+          </div>
+          <strong id="stat-profit" class="stat-value profit-positive" hidden aria-hidden="true">₹0</strong>
+
+          <div id="branch-analytics-row" class="branch-analytics-row admin-only"></div>
+          <div id="branch-combined-total" class="branch-combined-total glass-inset admin-only"></div>
+          <article id="branch-detail-card" class="glass card branch-detail-card admin-only" hidden>
+            <header class="card-head compact">
+              <h3>Branch details</h3>
+              <button type="button" class="btn-icon-sm" id="close-branch-detail" aria-label="Close">×</button>
+            </header>
+            <div id="branch-detail-body" class="branch-detail-body"></div>
+          </article>
+          <div class="dashboard-grid dashboard-grid-top">
+            <article class="glass card card-sales" id="dashboard-sales-card">
+              <header class="card-head">
+                <div>
+                  <h3>Today's Sales</h3>
+                  <p>View only — add sales in Daily Sales</p>
+                </div>
+                <span class="card-badge">Today</span>
+              </header>
+              <div id="dash-payment-summary" class="dash-payment-summary glass-inset"></div>
+              <div id="dash-category-summary" class="dash-category-summary glass-inset"></div>
+              <div class="payment-filter-bar dashboard-entry-only" data-payment-scope="main">
+                <span class="filter-label">Payment</span>
+                <button type="button" class="payment-chip is-active" data-payment="all">All</button>
+                <button type="button" class="payment-chip" data-payment="cash">Cash</button>
+                <button type="button" class="payment-chip" data-payment="upi">UPI</button>
+                <button type="button" class="payment-chip" data-payment="card">Card</button>
+              </div>
+              <div class="payment-stats-grid glass-inset dashboard-entry-only" id="payment-stats-main" aria-live="polite">
+                <div class="payment-stat-card stat-cash">
+                  <span class="payment-stat-label">Cash</span>
+                  <div class="payment-stat-rows">
+                    <div><span>Orders</span><strong class="counter" data-counter="cash-orders">0</strong></div>
+                    <div><span>Amount</span><strong class="counter" data-counter="cash-amount">₹0</strong></div>
+                  </div>
+                </div>
+                <div class="payment-stat-card stat-upi">
+                  <span class="payment-stat-label">UPI</span>
+                  <div class="payment-stat-rows">
+                    <div><span>Orders</span><strong class="counter" data-counter="upi-orders">0</strong></div>
+                    <div><span>Amount</span><strong class="counter" data-counter="upi-amount">₹0</strong></div>
+                  </div>
+                </div>
+                <div class="payment-stat-card stat-filtered">
+                  <span class="payment-stat-label">Showing</span>
+                  <div class="payment-stat-rows">
+                    <div><span>Orders</span><strong class="counter" data-counter="filtered-orders">0</strong></div>
+                    <div><span>Amount</span><strong class="counter" data-counter="filtered-amount">₹0</strong></div>
+                  </div>
+                </div>
+              </div>
+              <div class="category-filter-bar dashboard-entry-only" data-filter-scope="main">
+                <span class="filter-label">Category</span>
+                <button type="button" class="filter-chip is-active" data-category="all">All</button>
+                <button type="button" class="filter-chip" data-category="mobile">Mobile</button>
+                <button type="button" class="filter-chip" data-category="accessories">Accessories</button>
+                <button type="button" class="filter-chip" data-category="recharge">Recharge</button>
+                <button type="button" class="filter-chip" data-category="others">Others</button>
+              </div>
+              <form id="sale-form" class="sale-form-extended dashboard-entry-only" data-form-scope="main">
+                <label class="field field-product">
+                  <span>Product name</span>
+                  <input type="text" id="sale-product" placeholder="e.g. iPhone 15 / Samsung A15" />
+                </label>
+                <div class="field field-category-picker">
+                  <span>Product category</span>
+                  <div class="toggle-group" data-toggle="category">
+                    <button type="button" class="toggle-btn is-active" data-value="mobile">Mobile</button>
+                    <button type="button" class="toggle-btn" data-value="accessories">Accessories</button>
+                    <button type="button" class="toggle-btn" data-value="recharge">Recharge</button>
+                    <button type="button" class="toggle-btn" data-value="others">Others</button>
+                  </div>
+                </div>
+                <label class="field">
+                  <span>Quantity</span>
+                  <input type="number" id="sale-qty" min="1" step="1" value="1" />
+                </label>
+                <label class="field">
+                  <span>Price (₹)</span>
+                  <input type="number" id="sale-price" min="0" step="0.01" placeholder="120" />
+                </label>
+                <div class="field field-payment">
+                  <span>Payment method <em class="req">*</em></span>
+                  <div class="toggle-group" data-toggle="payment">
+                    <button type="button" class="toggle-btn is-active" data-value="cash">Cash</button>
+                    <button type="button" class="toggle-btn" data-value="upi">UPI</button>
+                    <button type="button" class="toggle-btn" data-value="card">Card</button>
+                  </div>
+                </div>
+                <div id="upi-account-wrap" class="upi-field-wrap payment-panel-wrap" data-panel="upi" hidden>
+                  <label class="field field-upi">
+                    <span>Payment account</span>
+                    <input type="text" id="sale-upi-account" placeholder="UPI ID / payment account details" />
+                  </label>
+                </div>
+                <div id="card-account-wrap" class="card-field-wrap payment-panel-wrap" data-panel="card" hidden></div>
+                <label class="field line-total-field">
+                  <span>Line total</span>
+                  <output id="sale-line-preview" class="line-total-preview">₹0</output>
+                </label>
+                <div class="sale-form-actions">
+                  <button type="button" id="btn-add-sale" class="btn btn-primary btn-glass">Add Sale</button>
+                  <button type="button" id="btn-edit-sale" class="btn btn-ghost btn-glass">Edit Sale</button>
+                  <button type="button" id="btn-cancel-edit" class="btn btn-ghost btn-cancel-edit" hidden>Cancel edit</button>
+                </div>
+              </form>
+              <div class="sales-table-head sales-table-head-standard" aria-hidden="true">
+                <span>Product</span><span>Qty</span><span>Price</span><span>Payment</span><span>Total</span><span></span>
+              </div>
+              <div class="payment-transactions-head sales-detail-head" id="sales-detail-head-main" hidden>
+                <span>Product</span><span>Amount</span><span>UPI Account</span><span>Date & Time</span><span>Details</span>
+              </div>
+              <ul id="sales-list" class="entry-list entry-list-sales sales-list-animated"></ul>
+              <footer class="sales-total-bar glass-inset">
+                <div><span>Total quantity</span><strong id="total-items-sold">0</strong></div>
+                <div><span>Total sales</span><strong id="total-revenue" class="text-glow">₹0</strong></div>
+              </footer>
+            </article>
+
+            <article class="glass card card-expenses" id="dashboard-expenses-card">
+              <header class="card-head">
+                <div>
+                  <h3>Expenses</h3>
+                  <p>Today's expenses — view only</p>
+                </div>
+                <span class="card-badge">Today</span>
+              </header>
+              <div id="dash-expense-summary" class="dash-expense-summary glass-inset">
+                <div class="dash-stat-pair">
+                  <div><span class="dash-stat-label">Total Expense</span><strong id="dash-expense-amount" class="text-danger">₹0</strong></div>
+                  <div><span class="dash-stat-label">Total Quantity</span><strong id="dash-expense-qty">0</strong></div>
+                </div>
+              </div>
+              <form id="expense-form" class="expense-form-grid dashboard-entry-only">
+                <label class="field field-product">
+                  <span>Expense name</span>
+                  <input type="text" id="expense-name" placeholder="Rent / Tea / Courier" required />
+                </label>
+                <label class="field">
+                  <span>Amount (₹)</span>
+                  <input type="number" id="expense-amount" min="0" step="0.01" placeholder="500" required />
+                </label>
+                <button type="submit" class="btn btn-primary btn-add-sale">Add expense</button>
+              </form>
+              <div class="expense-table-head" aria-hidden="true">
+                <span>Expense</span><span>Amount</span><span></span>
+              </div>
+              <ul id="expenses-list" class="entry-list entry-list-expenses"></ul>
+              <footer class="sales-total-bar glass-inset">
+                <div><span>Total quantity</span><strong id="total-expense-count">0</strong></div>
+                <div><span>Total expense</span><strong id="total-expenses" class="text-danger">₹0</strong></div>
+              </footer>
+            </article>
+          </div>
+
+          <article class="glass card dashboard-hero-summary glow-card dashboard-hero-span" id="dashboard-hero-summary">
+            <div class="hero-brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none"><rect x="12" y="4" width="24" height="40" rx="6" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="38" r="2" fill="currentColor"/></svg>
+            </div>
+            <p class="hero-brand-title">SKY <span class="accent">MOBILES</span></p>
+            <div class="hero-summary-metrics">
+              <div class="hero-metric">
+                <span class="hero-summary-label">Today's Sales</span>
+                <p id="hero-today-sales" class="hero-sales-amount">₹0</p>
+              </div>
+              <div class="hero-metric hero-metric-primary">
+                <span class="hero-summary-label">Total Net Balance</span>
+                <p id="hero-net-total" class="hero-net-amount profit-positive">₹0</p>
+              </div>
+            </div>
+            <p class="hero-summary-sub">Sales minus expenses for the selected day</p>
+          </article>
+
+          <div class="dashboard-grid dashboard-grid-lower">
+            <article class="glass card card-history span-2">
+              <header class="card-head">
+                <div>
+                  <h3>Monthly History</h3>
+                  <p>Click any date for full day details</p>
+                </div>
+                <div class="month-nav">
+                  <button type="button" class="btn-icon-sm" id="prev-month" aria-label="Previous month">‹</button>
+                  <span id="calendar-month-label"></span>
+                  <button type="button" class="btn-icon-sm" id="next-month" aria-label="Next month">›</button>
+                </div>
+              </header>
+              <div class="calendar-wrap">
+                <div class="calendar-weekdays" aria-hidden="true">
+                  <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+                <div id="calendar-grid" class="calendar-grid" role="grid" aria-label="Monthly calendar"></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="dashboard-bottom-stack">
+            <div class="charts-row">
+              <article class="glass card chart-card">
+                <header class="card-head compact">
+                  <h3>Daily Summary</h3>
+                  <p>Sales vs expenses — selected day</p>
+                </header>
+                <div class="chart-wrap"><canvas id="daily-chart"></canvas></div>
+              </article>
+              <article class="glass card chart-card">
+                <header class="card-head compact">
+                  <h3>Monthly Analytics</h3>
+                  <p>Sales & profit trend</p>
+                </header>
+                <div class="chart-wrap"><canvas id="monthly-chart"></canvas></div>
+              </article>
+            </div>
+          </div>
+          <span id="net-profit" hidden aria-hidden="true">₹0</span>
+          <strong id="profit-sales-ref" hidden aria-hidden="true">₹0</strong>
+          <strong id="profit-expenses-ref" hidden aria-hidden="true">₹0</strong>
+        </section>
+
+        <section class="view" id="view-sales" data-view="sales" hidden>
+          <article class="glass card card-full">
+            <header class="card-head">
+              <h3>Daily Sales</h3>
+              <p>Full sales entry for <span class="active-date-label"></span></p>
+            </header>
+            <div class="payment-filter-bar" data-payment-scope="alt">
+              <span class="filter-label">Payment</span>
+              <button type="button" class="payment-chip is-active" data-payment="all">All</button>
+              <button type="button" class="payment-chip" data-payment="cash">Cash</button>
+              <button type="button" class="payment-chip" data-payment="upi">UPI</button>
+              <button type="button" class="payment-chip" data-payment="card">Card</button>
+            </div>
+            <div class="payment-stats-grid glass-inset" id="payment-stats-alt" aria-live="polite">
+              <div class="payment-stat-card stat-cash">
+                <span class="payment-stat-label">Cash</span>
+                <div class="payment-stat-rows">
+                  <div><span>Orders</span><strong class="counter" data-counter="cash-orders">0</strong></div>
+                  <div><span>Amount</span><strong class="counter" data-counter="cash-amount">₹0</strong></div>
+                </div>
+              </div>
+              <div class="payment-stat-card stat-upi">
+                <span class="payment-stat-label">UPI</span>
+                <div class="payment-stat-rows">
+                  <div><span>Orders</span><strong class="counter" data-counter="upi-orders">0</strong></div>
+                  <div><span>Amount</span><strong class="counter" data-counter="upi-amount">₹0</strong></div>
+                </div>
+              </div>
+              <div class="payment-stat-card stat-filtered">
+                <span class="payment-stat-label">Showing</span>
+                <div class="payment-stat-rows">
+                  <div><span>Orders</span><strong class="counter" data-counter="filtered-orders">0</strong></div>
+                  <div><span>Amount</span><strong class="counter" data-counter="filtered-amount">₹0</strong></div>
+                </div>
+              </div>
+            </div>
+            <div class="category-filter-bar" data-filter-scope="alt">
+              <span class="filter-label">Category</span>
+              <button type="button" class="filter-chip is-active" data-category="all">All</button>
+              <button type="button" class="filter-chip" data-category="mobile">Mobile</button>
+              <button type="button" class="filter-chip" data-category="accessories">Accessories</button>
+              <button type="button" class="filter-chip" data-category="recharge">Recharge</button>
+              <button type="button" class="filter-chip" data-category="others">Others</button>
+            </div>
+            <form id="sale-form-alt" class="sale-form-extended" data-form-scope="alt">
+              <label class="field field-product"><span>Product name</span><input type="text" class="sale-product-alt" placeholder="e.g. iPhone 15" /></label>
+              <div class="field field-category-picker">
+                <span>Product category</span>
+                <div class="toggle-group toggle-category-alt" data-toggle="category">
+                  <button type="button" class="toggle-btn is-active" data-value="mobile">Mobile</button>
+                  <button type="button" class="toggle-btn" data-value="accessories">Accessories</button>
+                  <button type="button" class="toggle-btn" data-value="recharge">Recharge</button>
+                  <button type="button" class="toggle-btn" data-value="others">Others</button>
+                </div>
+              </div>
+              <label class="field"><span>Quantity</span><input type="number" class="sale-qty-alt" min="1" step="1" value="1" /></label>
+              <label class="field"><span>Price (₹)</span><input type="number" class="sale-price-alt" min="0" step="0.01" placeholder="120" /></label>
+              <div class="field field-payment">
+                <span>Payment method <em class="req">*</em></span>
+                <div class="toggle-group toggle-payment-alt" data-toggle="payment">
+                  <button type="button" class="toggle-btn is-active" data-value="cash">Cash</button>
+                  <button type="button" class="toggle-btn" data-value="upi">UPI</button>
+                  <button type="button" class="toggle-btn" data-value="card">Card</button>
+                </div>
+              </div>
+              <div class="upi-field-wrap upi-field-wrap-alt payment-panel-wrap" data-panel="upi" hidden>
+                <label class="field field-upi"><span>Payment account</span><input type="text" class="sale-upi-account-alt" placeholder="UPI ID / payment account details" /></label>
+              </div>
+              <div class="card-field-wrap card-account-wrap-alt payment-panel-wrap" data-panel="card" hidden></div>
+              <label class="field line-total-field"><span>Line total</span><output class="sale-line-preview-alt line-total-preview">₹0</output></label>
+              <div class="sale-form-actions">
+                <button type="button" class="btn-add-sale-alt btn btn-primary btn-glass">Add Sale</button>
+                <button type="button" class="btn-edit-sale-alt btn btn-ghost btn-glass">Edit Sale</button>
+                <button type="button" class="btn-cancel-edit-alt btn btn-ghost btn-cancel-edit" hidden>Cancel edit</button>
+              </div>
+            </form>
+            <div class="sales-table-head sales-table-head-standard"><span>Product</span><span>Qty</span><span>Price</span><span>Payment</span><span>Total</span><span></span></div>
+            <div class="payment-transactions-head sales-detail-head" id="sales-detail-head-alt" hidden>
+              <span>Product</span><span>Amount</span><span>UPI Account</span><span>Date & Time</span><span>Details</span>
+            </div>
+            <ul id="sales-list-alt" class="entry-list entry-list-sales tall sales-list-animated"></ul>
+            <div id="card-bank-breakdown-alt" class="card-bank-breakdown-wrap" hidden></div>
+            <div id="sales-grand-summary" class="sales-grand-summary glass-inset glow-card"></div>
+
+            <footer class="sales-total-bar glass-inset">
+              <div><span>Total quantity</span><strong id="total-items-sold-alt">0</strong></div>
+              <div><span>Total sales</span><strong id="total-revenue-alt" class="text-glow">₹0</strong></div>
+            </footer>
+          </article>
+        </section>
+
+        <section class="view" id="view-expenses" data-view="expenses" hidden>
+          <article class="glass card card-full">
+            <header class="card-head">
+              <h3>Expense Management</h3>
+              <p>Track daily costs for <span class="active-date-label"></span></p>
+            </header>
+                        <div class="payment-filter-bar" data-payment-scope="expense-alt">
+              <span class="filter-label">Payment</span>
+              <button type="button" class="payment-chip is-active expense-payment-alt" data-payment="cash">Cash</button>
+              <button type="button" class="payment-chip expense-payment-alt" data-payment="upi">UPI</button>
+              <button type="button" class="payment-chip expense-payment-alt" data-payment="card">Card</button>
+            </div>
+            <div class="category-filter-bar" data-filter-scope="expense-alt">
+              <span class="filter-label">Category</span>
+              <button type="button" class="filter-chip is-active expense-category-alt" data-category="mobile">Mobile</button>
+              <button type="button" class="filter-chip expense-category-alt" data-category="accessories">Accessories</button>
+              <button type="button" class="filter-chip expense-category-alt" data-category="recharge">Recharge</button>
+              <button type="button" class="filter-chip expense-category-alt" data-category="others">Others</button>
+            </div>            <form id="expense-form-alt" class="expense-form-grid expense-form-extended">
+              <label class="field field-product"><span>Expense name</span><input type="text" class="expense-name-alt" placeholder="Rent / Courier" required /></label>
+              <label class="field expense-card-bank-wrap" hidden><span>Card / Bank</span><input type="text" class="expense-card-bank-alt" placeholder="HDFC / SBI" /></label>
+              <label class="field"><span>Amount (₹)</span><input type="number" class="expense-amount-alt" min="0" step="0.01" required /></label>
+              <button type="submit" class="btn btn-primary">Add expense</button>
+            </form>
+            <div class="expense-table-head expense-table-head-wide"><span>Expense</span><span>Category</span><span>Payment</span><span>Amount</span><span></span></div>
+            <div id="expense-grand-summary" class="sales-grand-summary glass-inset glow-card"></div>
+            <ul id="expenses-list-alt" class="entry-list entry-list-expenses tall"></ul>
+            <footer class="sales-total-bar glass-inset single-col">
+              <div><span>Total expenses</span><strong id="total-expenses-alt" class="text-danger">₹0</strong></div>
+            </footer>
+          </article>
+        </section>
+
+        <section class="view" id="view-reports" data-view="reports" hidden>
+          <div class="reports-grid">
+            <article class="glass card">
+              <header class="card-head compact"><h3>Monthly Overview</h3></header>
+              <dl class="report-dl" id="report-summary"></dl>
+              <div class="report-actions">
+                <button type="button" class="btn btn-primary btn-glow" id="export-pdf-alt">Download PDF</button>
+                <button type="button" class="btn btn-ghost" id="export-csv-alt">Export CSV</button>
+              </div>
+            </article>
+            <article class="glass card chart-card tall">
+              <header class="card-head compact"><h3>Monthly Sales Chart</h3></header>
+              <div class="chart-wrap tall"><canvas id="reports-chart"></canvas></div>
+            </article>
+          </div>
+          <article class="glass card report-products-card">
+            <header class="card-head compact"><h3>Top Products This Month</h3></header>
+            <ul id="top-products-list" class="entry-list entry-list-products"></ul>
+          </article>
+          
+          <article class="glass card reports-branch-card admin-only">
+            <header class="card-head compact"><h3>Branch filter</h3></header>
+            <label class="field">
+              <span>Branch</span>
+              <select id="reports-branch-filter" class="glass-inset-select"></select>
+            </label>
+          </article>
+          <article class="glass card reports-totals-card">
+            <header class="card-head compact"><h3>Overall totals (month)</h3></header>
+            <div id="reports-overall-totals" class="reports-overall-totals"></div>
+          </article>
+          <article class="glass card payment-reports-card">
+            <header class="card-head">
+              <div>
+                <h3>Payment Reports</h3>
+                <p>Month-wise Cash & UPI analytics</p>
+              </div>
+            </header>
+            <div class="payment-filter-bar" data-payment-scope="reports">
+              <span class="filter-label">Payment</span>
+              <button type="button" class="payment-chip is-active" data-payment="all">All</button>
+              <button type="button" class="payment-chip" data-payment="cash">Cash</button>
+              <button type="button" class="payment-chip" data-payment="upi">UPI</button>
+              <button type="button" class="payment-chip" data-payment="card">Card</button>
+            </div>
+            <div class="payment-stats-grid glass-inset" id="payment-stats-reports" aria-live="polite">
+              <div class="payment-stat-card stat-cash">
+                <span class="payment-stat-label">Cash</span>
+                <div class="payment-stat-rows">
+                  <div><span>Orders</span><strong class="counter" data-counter="cash-orders">0</strong></div>
+                  <div><span>Amount</span><strong class="counter" data-counter="cash-amount">₹0</strong></div>
+                </div>
+              </div>
+              <div class="payment-stat-card stat-upi">
+                <span class="payment-stat-label">UPI</span>
+                <div class="payment-stat-rows">
+                  <div><span>Orders</span><strong class="counter" data-counter="upi-orders">0</strong></div>
+                  <div><span>Amount</span><strong class="counter" data-counter="upi-amount">₹0</strong></div>
+                </div>
+              </div>
+              <div class="payment-stat-card stat-filtered">
+                <span class="payment-stat-label">Showing</span>
+                <div class="payment-stat-rows">
+                  <div><span>Orders</span><strong class="counter" data-counter="filtered-orders">0</strong></div>
+                  <div><span>Amount</span><strong class="counter" data-counter="filtered-amount">₹0</strong></div>
+                </div>
+              </div>
+            </div>
+            <div class="payment-transactions-head" id="reports-payment-head">
+              <span>Product</span><span>Amount</span><span>UPI Account</span><span>Date & Time</span><span>Details</span>
+            </div>
+            <div id="reports-card-banks" class="card-bank-breakdown-wrap" hidden></div>
+            <ul id="reports-payment-list" class="payment-transactions-list sales-list-animated"></ul>
+          </article>
+        </section>
+
+        <section class="view" id="view-history" data-view="history" hidden>
+          <article class="glass card card-full">
+            <header class="card-head">
+              <h3>Date History</h3>
+              <p>Search or pick a date — slide panel shows full breakdown</p>
+            </header>
+            <div id="history-calendar-mount"></div>
+          </article>
+        </section>
+
+        <section class="view" id="view-settings" data-view="settings" hidden>
+          <div class="settings-grid">
+            <article class="glass card settings-card">
+              <h3>User Profile</h3>
+              <form id="profile-form" class="settings-form">
+                <label class="field"><span>Display name</span><input type="text" id="settings-name" /></label>
+                <label class="field"><span>Shop name</span><input type="text" id="settings-shop" value="SKY MOBILES" /></label>
+                <label class="field"><span>Email</span><input type="email" id="settings-email" /></label>
+                <button type="submit" class="btn btn-primary">Save Profile</button>
+              </form>
+            </article>
+            <article class="glass card settings-card">
+              <h3>Change Password</h3>
+              <form id="password-form" class="settings-form">
+                <label class="field">
+                  <span>Current password</span>
+                  <input type="password" id="pw-current" autocomplete="current-password" required />
+                </label>
+                <label class="field">
+                  <span>New password</span>
+                  <input type="password" id="pw-new" minlength="6" autocomplete="new-password" required />
+                </label>
+                <label class="field">
+                  <span>Confirm new password</span>
+                  <input type="password" id="pw-confirm" minlength="6" autocomplete="new-password" required />
+                </label>
+                <p id="password-msg" class="form-msg" hidden></p>
+                <button type="submit" class="btn btn-primary">Update password</button>
+              </form>
+            </article>
+            <article class="glass card settings-card">
+              <h3>Website address</h3>
+              <p class="muted">After you upload this site to hosting, your live link will appear here:</p>
+              <ul class="url-list" id="app-url-list"></ul>
+            </article>
+            <article class="glass card settings-card">
+              <h3>Multi-device sync</h3>
+              <p class="muted">Connect Firebase to sync sales, reports, and session across phone, tablet, and laptop.</p>
+              <p id="cloud-sync-status" class="cloud-sync-status sync-off">Checking cloud sync…</p>
+            </article>
+            
+            <article class="glass card settings-card admin-only span-2">
+              <h3>Branch management</h3>
+              <p class="muted">Create branches — sales sync to admin dashboard automatically.</p>
+              <form id="branch-form" class="settings-form settings-inline-form">
+                <label class="field"><span>Branch name</span><input type="text" id="new-branch-name" placeholder="Branch 2 / Mall outlet" required /></label>
+                <button type="submit" class="btn btn-primary">Add branch</button>
+              </form>
+              <ul id="branches-list" class="admin-list glass-inset"></ul>
+            </article>
+            <article class="glass card settings-card admin-only span-2">
+              <h3>User management</h3>
+              <p class="muted">Admin: full access. Staff: add sales only for assigned branch.</p>
+              <form id="user-form" class="settings-form">
+                <label class="field"><span>Name</span><input type="text" id="new-user-name" required /></label>
+                <label class="field"><span>Email</span><input type="email" id="new-user-email" required /></label>
+                <label class="field"><span>Password</span><input type="password" id="new-user-password" minlength="6" required /></label>
+                <label class="field"><span>Role</span>
+                  <select id="new-user-role" class="glass-inset-select">
+                    <option value="staff">Staff</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </label>
+                <label class="field"><span>Branch (staff)</span><select id="new-user-branch" class="glass-inset-select"></select></label>
+                <button type="submit" class="btn btn-primary">Create user</button>
+              </form>
+              <ul id="users-list" class="admin-list glass-inset"></ul>
+            </article>
+            <article class="glass card settings-card">
+              <h3>Backup & Data</h3>
+              <p class="muted">Export your records as JSON or reset all business data.</p>
+              <div class="settings-actions">
+                <button type="button" class="btn btn-ghost" id="export-json-btn">Export backup (JSON)</button>
+                <label class="btn btn-ghost file-label">
+                  Import backup
+                  <input type="file" id="import-json-input" accept="application/json,.json" hidden />
+                </label>
+                <button type="button" class="btn btn-ghost danger-text" id="clear-data-btn">Reset all data</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <footer class="app-footer">
+          <span>© <span id="footer-year"></span> <span id="footer-shop">SKY MOBILES</span></span>
+          <span class="muted">Official Website v1.0</span>
+        </footer>
+      </main>
+    </div>
+
+    <aside id="history-panel" class="history-panel glass" aria-hidden="true">
+      <header class="history-panel-head">
+        <div>
+          <h3 id="history-panel-date">—</h3>
+          <p>Day summary</p>
+        </div>
+        <button type="button" class="btn-icon-sm" id="close-history" aria-label="Close">×</button>
+      </header>
+      <div class="history-panel-body">
+        <div class="history-stats-grid">
+          <div class="history-stat"><span>Total quantity</span><strong id="hist-qty">0</strong></div>
+          <div class="history-stat"><span>Total sales</span><strong id="hist-sales">₹0</strong></div>
+          <div class="history-stat"><span>Expenses</span><strong id="hist-expenses" class="text-danger">₹0</strong></div>
+          <div class="history-stat highlight"><span>Net profit</span><strong id="hist-profit">₹0</strong></div>
+        </div>
+        <h4>Sales</h4>
+        <div class="sales-table-head compact-head sales-table-head-wide"><span>Product</span><span>Qty</span><span>Price</span><span>Pay</span><span>Total</span></div>
+        <ul id="hist-sales-list" class="entry-list entry-list-sales entry-list-history compact"></ul>
+        <h4>Expenses</h4>
+        <div class="expense-table-head compact-head"><span>Expense</span><span>Amount</span></div>
+        <ul id="hist-expenses-list" class="entry-list entry-list-expenses compact"></ul>
+        <button type="button" class="btn btn-ghost btn-block" id="hist-load-day">Open this day in dashboard</button>
+      </div>
+    </aside>
+    <div id="history-backdrop" class="history-backdrop" hidden></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>window.SKY_FIREBASE = window.SKY_FIREBASE || { enabled: false };</script>
+    <script src="firebase-config.js"></script>
+    <script src="cloud-sync.js"></script>
+    <script src="main.js"></script>
+    <script src="enterprise.js"></script>
+  </body>
+</html>
